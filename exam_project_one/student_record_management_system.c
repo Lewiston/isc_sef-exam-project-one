@@ -15,7 +15,7 @@ typedef struct {
 void addStudent(Student *list, int *count);
 void displayAll(Student *list, int *count);
 void searchByID(Student *list, int *count, int id);
-int saveRecords(Student *list, char *filename);
+int saveRecords(Student *list, int *count, char *filename);
 int loadRecords(Student *list, int *count, char *filename);
 
 
@@ -34,7 +34,7 @@ int main() {
     do {
 
     // Program Menu
-    printf("Please pick an option from the list below.\n");
+    printf("\nPlease pick an option from the list below.\n");
     printf("\n1. Add Student Record");
     printf("\n2. Display all records");
     printf("\n3. Search by ID");
@@ -66,19 +66,19 @@ int main() {
             searchByID(list, &count, id);
             break;
             
-        // case 4:
-        //     
-        //     printf("Enter Filename: ");
-        //     scanf("%s", filename);
-        //     saveRecords(list, &filename);
-        //     break;
+        case 4:
             
-        // case 5:
-        //     
-        //     printf("Enter Filename: ");
-        //     scanf("%s", filename);
-        //     loadRecords(list, &count, &filename);
-        //     break;
+            printf("Enter Filename: ");
+            scanf("%s", filename);
+            saveRecords(list, &count, filename);
+            break;
+            
+        case 5:
+            
+            printf("Enter Filename: ");
+            scanf("%s", filename);
+            loadRecords(list, &count, filename);
+            break;
             
         case 0:
             return 0;
@@ -98,15 +98,15 @@ int main() {
 
 void addStudent(Student *list, int *count) {
 
-    printf("Enter Student ID: \n");
+    printf("\nEnter Student ID: \n");
     scanf("%d", &list[*count].id);
-    printf("Enter Student Name: \n");
+    printf("\nEnter Student Name: \n");
     scanf("%s", list[*count].name);
-    printf("Enter Student Gender (Male/Female): \n");
+    printf("\nEnter Student Gender (Male/Female): \n");
     scanf("%s", list[*count].gender);
-    printf("Enter Student Age: \n");
+    printf("\nEnter Student Age: \n");
     scanf("%d", &list[*count].age);
-    printf("Enter Student GPA: \n");
+    printf("\nEnter Student GPA: \n");
     scanf("%f", &list[*count].gpa);
     printf("Student %s with ID %d was successfully added.\n", list[*count].name, list[*count].id);
     (*count)++;
@@ -120,8 +120,8 @@ void addStudent(Student *list, int *count) {
 void displayAll(Student *list, int *count) {
 
     printf("List of all students\n");    
-    for (int i = 0; i <= *count; i++) {
-        printf("ID: %d  | Name: %s  |   Gender: %s  |   Age: %d |   GPA: %f\n", list[*count].id, list[*count].name, list[*count].gender, list[*count].age, list[*count].gpa);
+    for (int i = 0; i < *count; i++) {
+        printf("ID: %d  | Name: %s  |   Gender: %s  |   Age: %d |   GPA: %.2f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
     }
 
 }
@@ -133,25 +133,24 @@ void searchByID(Student *list, int *count, int id) {
     for (int i = 0; i <= *count; i++) {
 
         if (list[i].id == id) {
-            printf("\n%d  %s  %s  %d  %f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
+            printf("\nID: %d    |   Name: %s    |   Gender: %s  |   Age: %d   |   GPA: %.2f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
             }
     }
 }
 
 
 
-int saveRecords(Student *list, char *filename) {
+int saveRecords(Student *list, int *count, char *filename) {
     
     FILE *file = fopen(filename, "a+");
     if (file == NULL) {
-    printf("Error opening file!\n");
-    return 1;
+        printf("Error opening file!\n");
+        return 1;
     }
-    // Open file for writing
-    // Write formatted text to the file
+   
     
-    for (int j = 0; j <= count; j++) {
-        fprintf(file, "%d   %s  %s %d  %f\n", list[count].id, list[count].name, list[count].gender, list[count].age, list[count].gpa);
+    for (int i = 0; i < *count; i++) {
+        fprintf(file, "ID: %d   |   Name: %s    |   Gender: %s  |   Age: %d    |   GPA: %.2f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
     }
    
     fclose(file);
@@ -160,17 +159,20 @@ int saveRecords(Student *list, char *filename) {
 
 int loadRecords(Student *list, int *count, char *filename) {
     
-    FILE *file = fopen(filename, "a+");
+    FILE *file = fopen(filename, "r");
+
     if (file == NULL) {
         printf("Error opening file!\n");
         return 1;
     }
 
-    for (int i = 0; i < *count; i++) {
-        fprintf(file, "%d %s %s %d %.2f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
+    char line[100];
+        while (fgets(line, sizeof(line), file)) {
+        printf("%s", line);
     }
 
     fclose(file);
+
     return 0;
 
 }

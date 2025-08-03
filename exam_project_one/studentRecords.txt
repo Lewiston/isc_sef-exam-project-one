@@ -1,0 +1,8 @@
+STUDENT RECORDS
+
+ID: 1   |   Name: Alex    |   Gender: Female  |   Age: 21    |   GPA: 3.31
+ID: 2   |   Name: Bryant    |   Gender: Male  |   Age: 18    |   GPA: 3.40
+ID: 3   |   Name: Carlos    |   Gender: Male  |   Age: 21    |   GPA: 3.40
+ID: 4   |   Name: Diane    |   Gender: Female  |   Age: 20    |   GPA: 2.90
+ID: 5   |   Name: Erine    |   Gender: Female  |   Age: 19    |   GPA: 3.11
+
