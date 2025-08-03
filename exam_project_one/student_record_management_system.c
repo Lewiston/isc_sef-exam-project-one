@@ -104,7 +104,7 @@ void addStudent(Student *list, int *count) {
     scanf("%s", list[*count].name);
     printf("Enter Student Gender (Male/Female): \n");
     scanf("%s", list[*count].gender);
-    printf("Enter Student GPA: \n");
+    printf("Enter Student Age: \n");
     scanf("%d", &list[*count].age);
     printf("Enter Student GPA: \n");
     scanf("%f", &list[*count].gpa);
@@ -120,7 +120,7 @@ void addStudent(Student *list, int *count) {
 void displayAll(Student *list, int *count) {
 
     printf("List of all students\n");    
-    for (*count = 0; *count <= 100; (*count)++) {
+    for (int i = 0; i <= *count; i++) {
         printf("ID: %d  | Name: %s  |   Gender: %s  |   Age: %d |   GPA: %f\n", list[*count].id, list[*count].name, list[*count].gender, list[*count].age, list[*count].gpa);
     }
 
@@ -130,47 +130,47 @@ void displayAll(Student *list, int *count) {
 
 void searchByID(Student *list, int *count, int id) {
     
-    int x = id - 1;
-    printf("\n%d  %s  %s  %d  %f\n", list[x].id, list[x].name, list[x].gender, list[x].age, list[x].gpa);
+    for (int i = 0; i <= *count; i++) {
 
+        if (list[i].id == id) {
+            printf("\n%d  %s  %s  %d  %f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
+            }
+    }
 }
 
 
 
-// int saveRecords(Student *list, char *filename) {
+int saveRecords(Student *list, char *filename) {
     
-//     FILE *file = fopen("*filename", "a+");
-//     if (file == NULL) {
-//     printf("Error opening file!\n");
-//     return 1;
-//     }
-//     // Open file for writing
-//     // Write formatted text to the file
-//     int count = 0;
-//     for (count=0; count<=100; count++) {
-//         fprintf(file, "%d   %s  %s %d  %f\n", list[count].id, list[count].name, list[count].gender, list[count].age, list[count].gpa);
-//     }
+    FILE *file = fopen(filename, "a+");
+    if (file == NULL) {
+    printf("Error opening file!\n");
+    return 1;
+    }
+    // Open file for writing
+    // Write formatted text to the file
+    
+    for (int j = 0; j <= count; j++) {
+        fprintf(file, "%d   %s  %s %d  %f\n", list[count].id, list[count].name, list[count].gender, list[count].age, list[count].gpa);
+    }
    
-//     fclose(file);
-//     return 0;
-// }
+    fclose(file);
+    return 0;
+}
 
-// int loadRecords(Student *list, int *count, char *filename) {
-//     FILE *file = fopen(*filename, "r");
-//     if (file == NULL) {
-//         printf("Could not open file %s for reading.\n", filename);
-//         return;
-//     }
+int loadRecords(Student *list, int *count, char *filename) {
+    
+    FILE *file = fopen(filename, "a+");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
 
-//     while (fscanf(file, "%d %s", &list[*count].id, list[*count].name) == 2) {
-//         (*count)++;
-//         if (*count >= 100) {
-//             printf("Maximum number of students (100) reached.\n");
-//             break;
-//         }
-//     }
+    for (int i = 0; i < *count; i++) {
+        fprintf(file, "%d %s %s %d %.2f\n", list[i].id, list[i].name, list[i].gender, list[i].age, list[i].gpa);
+    }
 
-//     fclose(file);
-//     printf("%d students loaded from file.\n", *count);
-//      return 0;
-// }
+    fclose(file);
+    return 0;
+
+}
