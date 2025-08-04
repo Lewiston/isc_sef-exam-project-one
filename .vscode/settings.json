@@ -1,5 +1,6 @@
 {
   "files.associations": {
     "string.h": "c"
-  }
+  },
+  "cSpell.ignoreWords": ["ISEF", "MBUNGANU", "MEBONGHO"]
 }
